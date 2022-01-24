@@ -191,10 +191,15 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let value = null;
+  str.split('').reverse().forEach((item) => {
+    if (str.length - 1 === str.replaceAll(item, '').length) {
+      value = item;
+    }
+  });
+  return value;
 }
-
 
 /**
  * Returns the string representation of math interval,
@@ -321,10 +326,23 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (!str.length) {
+    return true;
+  }
+  const brackets = [['[', ']'], ['{', '}'], ['(', ')'], ['<', '>']];
+  let newStr = str;
+  for (let j = 0; j < brackets.length; j += 1) {
+    for (let i = 0; i < newStr.length; i += 1) {
+      if (newStr[i] === brackets[j][1] && newStr[i - 1] === brackets[j][0]) {
+        newStr = newStr.slice(0, i - 1) + newStr.slice(i + 1);
+        i = 0;
+        j = 0;
+      }
+    }
+  }
+  return !newStr.length;
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
@@ -346,8 +364,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
